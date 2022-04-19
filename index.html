@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+
+        .mapbuttons {
+            position: absolute;
+            z-index: 1000;
+            right: 0;
+            top: 50px;
+            width: 40px;
+            padding: 10px;
+        }
+
+        .mapbuttons button {
+            display: inline-block;
+            margin: 0;
+            background: white none repeat scroll 0% 0%;
+            border: 0px none;
+            padding: 0px;
+            text-transform: none;
+            appearance: none;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 2px;
+            height: 40px;
+            width: 40px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+            overflow: hidden;
+            top: 0px;
+            right: 0px;
+            font: 400 11px Roboto, Arial, sans-serif;
+            color: #666;
+        }
+
+        .mapbuttons button:hover {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="mapbuttons">
+        <button onclick="openInOSM()">OSM</button>
+        <button onclick="openInGM()">GM</button>
+    </div>
+    <script>
+        let map = null;
+        function initMap () {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 47.4989034, lng: 19.0436576 },
+                zoom: 18,
+                tilt: 45,
+                mapTypeId: 'satellite',
+                gestureHandling: 'greedy'
+            });
+        }
+        const openInOSM = () => {
+            let center = map.getCenter();
+            let url = `http://www.openstreetmap.org/?mlat=${center.lat()}&mlon=${center.lng()}&zoom=${map.getZoom()}`;
+            window.open(url, '_blank').focus();
+        }
+        const openInGM = () => {
+            let center = map.getCenter();
+            let url = `https://www.google.hu/maps/@${center.lat()},${center.lng()},${map.getZoom()}z`;
+            window.open(url, '_blank').focus();
+        }
+    </script>
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRL-Vp_h_EskZUebRsrN5P64bFcflEjy4&amp;callback=initMap"></script>
+
+</body>
+
+</html>
